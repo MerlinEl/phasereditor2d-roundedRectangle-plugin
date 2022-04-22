@@ -11,7 +11,13 @@ namespace phasereditor2d.roundedRectangle {
         static strokeColor = sceneobjects.NumberColorProperty("strokeColor", "#fff", "Stroke Color", "The stroke color.");
         static strokeAlpha = sceneobjects.SimpleProperty("strokeAlpha", 1, "Stroke Alpha", "The stroke alpha.");
         static lineWidth = sceneobjects.SimpleProperty("lineWidth", 1, "Line Width", "The line width.");
+
         static radius = sceneobjects.SimpleProperty("radius", 0, "Radius", "The radius.");
+        static isSingleRadius = sceneobjects.SimpleProperty("isSingleRadius", true, "Single Radius", "Single Radius?");
+        static radiusTL = sceneobjects.SimpleProperty("radiusTL", 0, "RadiusTL", "Top Left.");
+        static radiusTR = sceneobjects.SimpleProperty("radiusTR", 0, "RadiusTR", "The radius Top Right.");
+        static radiusBL = sceneobjects.SimpleProperty("radiusBL", 0, "RadiusBL", "The radius Bottom Left.");
+        static radiusBR = sceneobjects.SimpleProperty("radiusBR", 0, "RadiusBR", "The radius Bottom Right.");
 
         static shadowColor = sceneobjects.NumberColorProperty("shadowColor", "#000", "Shadow Color", "The shadow color.");
         static shadowAlpha = sceneobjects.SimpleProperty("shadowAlpha", 1, "Shadow Alpha", "The shadow alpha.");
@@ -22,6 +28,11 @@ namespace phasereditor2d.roundedRectangle {
         constructor(obj: RoundedRectangle) {
             super(obj, [
                 RoundedRectangleComponent.radius,
+                RoundedRectangleComponent.isSingleRadius,
+                RoundedRectangleComponent.radiusTL,
+                RoundedRectangleComponent.radiusTR,
+                RoundedRectangleComponent.radiusBL,
+                RoundedRectangleComponent.radiusBR,
                 RoundedRectangleComponent.fillColor,
                 RoundedRectangleComponent.isFilled,
                 RoundedRectangleComponent.fillAlpha,
@@ -49,6 +60,11 @@ namespace phasereditor2d.roundedRectangle {
             this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.lineWidth);
 
             this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.radius);
+            this.buildSetObjectPropertyCodeDOM_BooleanProperty(args, RoundedRectangleComponent.isSingleRadius);
+            this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.radiusTL);
+            this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.radiusTR);
+            this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.radiusBL);
+            this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.radiusBR);
 
             this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.shadowOffsetX);
             this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.shadowOffsetY);

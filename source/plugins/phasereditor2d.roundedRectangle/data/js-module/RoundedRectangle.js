@@ -9,6 +9,11 @@ export default class RoundedRectangle extends Phaser.GameObjects.RenderTexture {
     strokeAlpha = 1;
     lineWidth = 1;
     radius = 20;
+    isSingleRadius = true;
+    radiusTL = 20;
+    radiusTR = 20;
+    radiusBL = 20;
+    radiusBR = 20;
     shadowColor = 0;
     shadowAlpha = 0;
     shadowOffsetX = 0;
@@ -28,7 +33,7 @@ export default class RoundedRectangle extends Phaser.GameObjects.RenderTexture {
             let h = this.shadowOffsetY < 0 ? this.height + this.shadowOffsetY : this.height - this.shadowOffsetY;
             if (this.shadowOffsetX !== 0 && this.shadowOffsetY !== 0 && this.shadowAlpha !== 0) {
                 gr.fillStyle(this.shadowColor, this.shadowAlpha);
-                gr.fillRoundedRect(x + this.shadowOffsetX, y + this.shadowOffsetY, w, h, this.shadowRadius === -1 ? this.radius : this.shadowRadius);
+                gr.fillRoundedRect(x + this.shadowOffsetX, y + this.shadowOffsetY, w, h, this.shadowRadius === -1 ? this.getRadius() : this.shadowRadius);
             }
             if (this.isFilled) {
                 gr.fillStyle(this.fillColor, this.fillAlpha);
@@ -38,14 +43,18 @@ export default class RoundedRectangle extends Phaser.GameObjects.RenderTexture {
                     w -= this.lineWidth;
                     h -= this.lineWidth;
                 }
-                gr.fillRoundedRect(x, y, w, h, this.radius);
+                gr.fillRoundedRect(x, y, w, h, this.getRadius());
             }
             if (this.isStroked) {
                 gr.lineStyle(this.lineWidth, this.strokeColor, this.strokeAlpha);
-                gr.strokeRoundedRect(x, y, w, h, this.radius);
+                gr.strokeRoundedRect(x, y, w, h, this.getRadius());
             }
             this.draw(gr);
             gr.destroy();
         }
+    }
+    getRadius() {
+
+        return this.isSingleRadius ? this.radius : { tl: this.radiusTL, tr: this.radiusTR, bl: this.radiusBL, br: this.radiusBR };
     }
 }

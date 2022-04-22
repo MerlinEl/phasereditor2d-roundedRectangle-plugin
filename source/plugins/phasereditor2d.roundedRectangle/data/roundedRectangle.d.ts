@@ -4,6 +4,11 @@ interface RoundedRectangle extends Phaser.GameObjects.RenderTexture {
     rectangleWidth: number;
     rectangleHeight: number;
     radius: number;
+    isSingleRadius: boolean;
+    radiusTL: number;
+    radiusTR: number;
+    radiusBL: number;
+    radiusBR: number;
     fillColor: number;
     isFilled: boolean;
     fillAlpha: number;
@@ -17,7 +22,7 @@ interface RoundedRectangle extends Phaser.GameObjects.RenderTexture {
     shadowOffsetY: number;
     shadowRadius: number;
 
-    setRectangleSize(width:number, height:number): void;
+    setRectangleSize(width: number, height: number): void;
     redraw(): void;
 }
 

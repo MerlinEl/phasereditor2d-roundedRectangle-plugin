@@ -11,6 +11,11 @@ namespace phasereditor2d.roundedRectangle {
         private _strokeAlpha: number = 1;
         private _lineWidth: number = 1;
         private _radius: number = 20;
+        private _isSingleRadius: boolean = true;
+        private _radiusTL: number = 20;
+        private _radiusTR: number = 20;
+        private _radiusBL: number = 20;
+        private _radiusBR: number = 20;
         private _shadowColor = 0;
         private _shadowAlpha = 0;
         private _shadowOffsetX = 0;
@@ -184,6 +189,66 @@ namespace phasereditor2d.roundedRectangle {
             this.redraw();
         }
 
+        get isSingleRadius() {
+
+            return this._isSingleRadius;
+        }
+
+        set isSingleRadius(bol: boolean) {
+
+            this._isSingleRadius = bol;
+            // console.log("RoundedRectangle > isSingleRadius > checked:" + bol);
+            this.redraw();
+        }
+
+        get radiusTL() {
+
+            return this._radiusTL;
+        }
+
+        set radiusTL(val: number) {
+
+            this._radiusTL = val;
+
+            this.redraw();
+        }
+
+        get radiusTR() {
+
+            return this._radiusTR;
+        }
+
+        set radiusTR(val: number) {
+
+            this._radiusTR = val;
+
+            this.redraw();
+        }
+
+        get radiusBL() {
+
+            return this._radiusBL;
+        }
+
+        set radiusBL(val: number) {
+
+            this._radiusBL = val;
+
+            this.redraw();
+        }
+
+        get radiusBR() {
+
+            return this._radiusBR;
+        }
+
+        set radiusBR(val: number) {
+
+            this._radiusBR = val;
+
+            this.redraw();
+        }
+
         setSize(width: number, height: number): this {
 
             super.setSize(width, height);
@@ -212,7 +277,7 @@ namespace phasereditor2d.roundedRectangle {
                     gr.fillRoundedRect(
                         x + this._shadowOffsetX, y + this._shadowOffsetY,
                         w, h,
-                        this._shadowRadius === -1 ? this._radius : this._shadowRadius);
+                        this._shadowRadius === -1 ? this.getRadius() : this._shadowRadius);
                 }
 
                 if (this._isFilled) {
@@ -227,19 +292,23 @@ namespace phasereditor2d.roundedRectangle {
                         h -= this.lineWidth;
                     }
 
-                    gr.fillRoundedRect(x, y, w, h, this._radius);
+                    gr.fillRoundedRect(x, y, w, h, this.getRadius());
                 }
 
                 if (this._isStroked) {
 
                     gr.lineStyle(this._lineWidth, this._strokeColor, this._strokeAlpha);
-                    gr.strokeRoundedRect(x, y, w, h, this._radius);
+                    gr.strokeRoundedRect(x, y, w, h, this.getRadius());
                 }
 
                 this.draw(gr);
 
                 gr.destroy();
             }
+        }
+        getRadius() {
+
+            return this._isSingleRadius ? this._radius : { tl: this._radiusTL, tr: this._radiusTR, bl: this._radiusBL, br: this._radiusBR };
         }
     }
 }

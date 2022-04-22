@@ -9,6 +9,11 @@ declare namespace phasereditor2d.roundedRectangle {
         private _strokeAlpha;
         private _lineWidth;
         private _radius;
+        private _isSingleRadius;
+        private _radiusTL;
+        private _radiusTR;
+        private _radiusBL;
+        private _radiusBR;
         private _shadowColor;
         private _shadowAlpha;
         private _shadowOffsetX;
@@ -42,8 +47,24 @@ declare namespace phasereditor2d.roundedRectangle {
         set lineWidth(lineWidth: number);
         get radius(): number;
         set radius(radius: number);
+        get isSingleRadius(): boolean;
+        set isSingleRadius(bol: boolean);
+        get radiusTL(): number;
+        set radiusTL(val: number);
+        get radiusTR(): number;
+        set radiusTR(val: number);
+        get radiusBL(): number;
+        set radiusBL(val: number);
+        get radiusBR(): number;
+        set radiusBR(val: number);
         setSize(width: number, height: number): this;
         redraw(): void;
+        getRadius(): number | {
+            tl: number;
+            tr: number;
+            bl: number;
+            br: number;
+        };
     }
 }
 declare namespace phasereditor2d.roundedRectangle {
@@ -86,6 +107,11 @@ declare namespace phasereditor2d.roundedRectangle {
         static strokeAlpha: sceneobjects.IProperty<any>;
         static lineWidth: sceneobjects.IProperty<any>;
         static radius: sceneobjects.IProperty<any>;
+        static isSingleRadius: sceneobjects.IProperty<any>;
+        static radiusTL: sceneobjects.IProperty<any>;
+        static radiusTR: sceneobjects.IProperty<any>;
+        static radiusBL: sceneobjects.IProperty<any>;
+        static radiusBR: sceneobjects.IProperty<any>;
         static shadowColor: sceneobjects.IProperty<any>;
         static shadowAlpha: sceneobjects.IProperty<any>;
         static shadowOffsetX: sceneobjects.IProperty<any>;

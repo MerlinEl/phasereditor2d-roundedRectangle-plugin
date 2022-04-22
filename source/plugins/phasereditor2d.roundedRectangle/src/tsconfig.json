@@ -23,5 +23,8 @@
             "path": "../../../../../PhaserEditor2D-v3/source/editor/plugins/phasereditor2d.scene/src"
         }
     ],
-    "exclude": ["../_out/", "../data/"]
+    "exclude": [
+        "../_out/",
+        "../data/"
+    ]
 }

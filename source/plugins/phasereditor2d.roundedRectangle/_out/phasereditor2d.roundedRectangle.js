@@ -13,6 +13,11 @@ var phasereditor2d;
                 this._strokeAlpha = 1;
                 this._lineWidth = 1;
                 this._radius = 20;
+                this._isSingleRadius = true;
+                this._radiusTL = 20;
+                this._radiusTR = 20;
+                this._radiusBL = 20;
+                this._radiusBR = 20;
                 this._shadowColor = 0;
                 this._shadowAlpha = 0;
                 this._shadowOffsetX = 0;
@@ -114,6 +119,42 @@ var phasereditor2d;
                 this._radius = radius;
                 this.redraw();
             }
+            get isSingleRadius() {
+                return this._isSingleRadius;
+            }
+            set isSingleRadius(bol) {
+                this._isSingleRadius = bol;
+                // console.log("RoundedRectangle > isSingleRadius > checked:" + bol);
+                this.redraw();
+            }
+            get radiusTL() {
+                return this._radiusTL;
+            }
+            set radiusTL(val) {
+                this._radiusTL = val;
+                this.redraw();
+            }
+            get radiusTR() {
+                return this._radiusTR;
+            }
+            set radiusTR(val) {
+                this._radiusTR = val;
+                this.redraw();
+            }
+            get radiusBL() {
+                return this._radiusBL;
+            }
+            set radiusBL(val) {
+                this._radiusBL = val;
+                this.redraw();
+            }
+            get radiusBR() {
+                return this._radiusBR;
+            }
+            set radiusBR(val) {
+                this._radiusBR = val;
+                this.redraw();
+            }
             setSize(width, height) {
                 super.setSize(width, height);
                 this.redraw();
@@ -129,7 +170,7 @@ var phasereditor2d;
                     let h = this._shadowOffsetY < 0 ? this.height + this._shadowOffsetY : this.height - this._shadowOffsetY;
                     if (this._shadowOffsetX !== 0 && this._shadowOffsetY !== 0 && this._shadowAlpha !== 0) {
                         gr.fillStyle(this._shadowColor, this._shadowAlpha);
-                        gr.fillRoundedRect(x + this._shadowOffsetX, y + this._shadowOffsetY, w, h, this._shadowRadius === -1 ? this._radius : this._shadowRadius);
+                        gr.fillRoundedRect(x + this._shadowOffsetX, y + this._shadowOffsetY, w, h, this._shadowRadius === -1 ? this.getRadius() : this._shadowRadius);
                     }
                     if (this._isFilled) {
                         gr.fillStyle(this._fillColor, this._fillAlpha);
@@ -139,15 +180,18 @@ var phasereditor2d;
                             w -= this.lineWidth;
                             h -= this.lineWidth;
                         }
-                        gr.fillRoundedRect(x, y, w, h, this._radius);
+                        gr.fillRoundedRect(x, y, w, h, this.getRadius());
                     }
                     if (this._isStroked) {
                         gr.lineStyle(this._lineWidth, this._strokeColor, this._strokeAlpha);
-                        gr.strokeRoundedRect(x, y, w, h, this._radius);
+                        gr.strokeRoundedRect(x, y, w, h, this.getRadius());
                     }
                     this.draw(gr);
                     gr.destroy();
                 }
+            }
+            getRadius() {
+                return this._isSingleRadius ? this._radius : { tl: this._radiusTL, tr: this._radiusTR, bl: this._radiusBL, br: this._radiusBR };
             }
         }
         roundedRectangle.RoundedRectangle = RoundedRectangle;
@@ -315,6 +359,11 @@ var phasereditor2d;
             constructor(obj) {
                 super(obj, [
                     RoundedRectangleComponent.radius,
+                    RoundedRectangleComponent.isSingleRadius,
+                    RoundedRectangleComponent.radiusTL,
+                    RoundedRectangleComponent.radiusTR,
+                    RoundedRectangleComponent.radiusBL,
+                    RoundedRectangleComponent.radiusBR,
                     RoundedRectangleComponent.fillColor,
                     RoundedRectangleComponent.isFilled,
                     RoundedRectangleComponent.fillAlpha,
@@ -338,6 +387,11 @@ var phasereditor2d;
                 this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.strokeAlpha);
                 this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.lineWidth);
                 this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.radius);
+                this.buildSetObjectPropertyCodeDOM_BooleanProperty(args, RoundedRectangleComponent.isSingleRadius);
+                this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.radiusTL);
+                this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.radiusTR);
+                this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.radiusBL);
+                this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.radiusBR);
                 this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.shadowOffsetX);
                 this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.shadowOffsetY);
                 this.buildSetObjectPropertyCodeDOM_FloatProperty(args, RoundedRectangleComponent.shadowRadius);
@@ -353,6 +407,11 @@ var phasereditor2d;
         RoundedRectangleComponent.strokeAlpha = sceneobjects.SimpleProperty("strokeAlpha", 1, "Stroke Alpha", "The stroke alpha.");
         RoundedRectangleComponent.lineWidth = sceneobjects.SimpleProperty("lineWidth", 1, "Line Width", "The line width.");
         RoundedRectangleComponent.radius = sceneobjects.SimpleProperty("radius", 0, "Radius", "The radius.");
+        RoundedRectangleComponent.isSingleRadius = sceneobjects.SimpleProperty("isSingleRadius", true, "Single Radius", "Single Radius?");
+        RoundedRectangleComponent.radiusTL = sceneobjects.SimpleProperty("radiusTL", 0, "RadiusTL", "Top Left.");
+        RoundedRectangleComponent.radiusTR = sceneobjects.SimpleProperty("radiusTR", 0, "RadiusTR", "The radius Top Right.");
+        RoundedRectangleComponent.radiusBL = sceneobjects.SimpleProperty("radiusBL", 0, "RadiusBL", "The radius Bottom Left.");
+        RoundedRectangleComponent.radiusBR = sceneobjects.SimpleProperty("radiusBR", 0, "RadiusBR", "The radius Bottom Right.");
         RoundedRectangleComponent.shadowColor = sceneobjects.NumberColorProperty("shadowColor", "#000", "Shadow Color", "The shadow color.");
         RoundedRectangleComponent.shadowAlpha = sceneobjects.SimpleProperty("shadowAlpha", 1, "Shadow Alpha", "The shadow alpha.");
         RoundedRectangleComponent.shadowOffsetX = sceneobjects.SimpleProperty("shadowOffsetX", 0, "Shadow Offset X", "The shadow offset in the X axis.");
@@ -487,6 +546,16 @@ var phasereditor2d;
                 const comp = this.createGridElement(parent);
                 comp.style.gridTemplateColumns = "auto auto 1fr auto";
                 this.createPropertyFloatRow(comp, roundedRectangle.RoundedRectangleComponent.radius)
+                    .style.gridColumn = "3 / span 2";
+                this.createPropertyBoolean(comp, roundedRectangle.RoundedRectangleComponent.isSingleRadius)
+                    .checkElement.style.gridColumn = "3 / span 2";
+                this.createPropertyFloatRow(comp, roundedRectangle.RoundedRectangleComponent.radiusTL)
+                    .style.gridColumn = "3 / span 2";
+                this.createPropertyFloatRow(comp, roundedRectangle.RoundedRectangleComponent.radiusTR)
+                    .style.gridColumn = "3 / span 2";
+                this.createPropertyFloatRow(comp, roundedRectangle.RoundedRectangleComponent.radiusBL)
+                    .style.gridColumn = "3 / span 2";
+                this.createPropertyFloatRow(comp, roundedRectangle.RoundedRectangleComponent.radiusBR)
                     .style.gridColumn = "3 / span 2";
                 this.createPropertyBoolean(comp, roundedRectangle.RoundedRectangleComponent.isFilled)
                     .checkElement.style.gridColumn = "3 / span 2";

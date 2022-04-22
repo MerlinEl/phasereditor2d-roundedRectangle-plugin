@@ -28,7 +28,8 @@
 	"homepage": "https://github.com/PhaserEditor2D/phasereditor2d-roundedRectangle-plugin#readme",
 	"phasereditor2d": {
 		"plugins": [
-			"dist"
+			"dist",
+			"source/plugins"
 		]
 	}
 }

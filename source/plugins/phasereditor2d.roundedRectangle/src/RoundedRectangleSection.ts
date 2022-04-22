@@ -18,6 +18,21 @@ namespace phasereditor2d.roundedRectangle {
             this.createPropertyFloatRow(comp, RoundedRectangleComponent.radius)
                 .style.gridColumn = "3 / span 2";
 
+            this.createPropertyBoolean(comp, RoundedRectangleComponent.isSingleRadius)
+                .checkElement.style.gridColumn = "3 / span 2";
+
+            this.createPropertyFloatRow(comp, RoundedRectangleComponent.radiusTL)
+                .style.gridColumn = "3 / span 2";
+
+            this.createPropertyFloatRow(comp, RoundedRectangleComponent.radiusTR)
+                .style.gridColumn = "3 / span 2";
+
+            this.createPropertyFloatRow(comp, RoundedRectangleComponent.radiusBL)
+                .style.gridColumn = "3 / span 2";
+
+            this.createPropertyFloatRow(comp, RoundedRectangleComponent.radiusBR)
+                .style.gridColumn = "3 / span 2";
+
             this.createPropertyBoolean(comp, RoundedRectangleComponent.isFilled)
                 .checkElement.style.gridColumn = "3 / span 2";
 
