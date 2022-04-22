@@ -1,5 +1,6 @@
 # Phaser Editor 2D v3 - (Modified)RoundedRectangle plugin
 
+Original plugin [version](https://github.com/PhaserEditor2D/phasereditor2d-roundedRectangle-plugin).
 This repository contains RoundedRectangle plugin for Phaser Editor 2D v3.
 
 ## Install
